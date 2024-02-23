@@ -215,7 +215,7 @@ open class LiquidFloatingActionButton : UIView {
     
     // MARK: private methods
     fileprivate func setup() {
-        self.backgroundColor = UIColor.black
+        self.backgroundColor = UIColor.gray
         self.clipsToBounds = false
 
         baseView.setup(self)
