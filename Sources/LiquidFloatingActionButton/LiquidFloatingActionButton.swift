@@ -9,6 +9,7 @@
 import Foundation
 import QuartzCore
 import UIKit
+import OSLog
 
 // LiquidFloatingButton DataSource methods
 @objc public protocol LiquidFloatingActionButtonDataSource {
@@ -32,6 +33,9 @@ public enum LiquidFloatingActionButtonAnimateStyle : Int {
 
 @IBDesignable
 open class LiquidFloatingActionButton : UIView {
+    
+    // Define the logger with internal access
+    internal let logger = Logger(subsystem: "com.AdvSolutionPros", category: "LiquidFloatingActionButton")
 
     fileprivate let internalRadiusRatio: CGFloat = 20.0 / 56.0
     open var cellRadiusRatio: CGFloat      = 0.38
@@ -112,6 +116,7 @@ open class LiquidFloatingActionButton : UIView {
 
     // open all cells
     open func open() {
+        logger.info("open()")
         delegate?.liquidFloatingActionButtonWillOpenDrawer?(self)
 		
         // rotate plus icon
@@ -130,6 +135,7 @@ open class LiquidFloatingActionButton : UIView {
 
     // close all cells
     open func close() {
+        logger.info("close()")
         delegate?.liquidFloatingActionButtonWillCloseDrawer?(self)
 		
         // rotate plus icon
@@ -184,17 +190,20 @@ open class LiquidFloatingActionButton : UIView {
     
     // MARK: Events
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        logger.info("touchesBegan()")
         self.touching = true
         setNeedsDisplay()
     }
     
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        logger.info("touchesEnded()")
         self.touching = false
         setNeedsDisplay()
         didTapped()
     }
     
     open override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+        logger.info("touchesCancelled()")
         self.touching = false
         setNeedsDisplay()
     }
@@ -216,7 +225,7 @@ open class LiquidFloatingActionButton : UIView {
     // MARK: private methods
     fileprivate func setup() {
         
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = UIColor.clear
         self.clipsToBounds = false
 
         baseView.setup(self)
@@ -236,8 +245,10 @@ open class LiquidFloatingActionButton : UIView {
 
     fileprivate func didTapped() {
         if isClosed {
+            logger.info("didTapped - open")
             open()
         } else {
+            logger.info("didTapped - close")
             close()
         }
     }
