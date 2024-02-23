@@ -21,6 +21,7 @@ let package = Package(
         .target(
             name: "LiquidFloatingActionButton",
             dependencies: []),
+            
         .testTarget(
             name: "LiquidFloatingActionButtonTests",
             dependencies: ["LiquidFloatingActionButton"]),
